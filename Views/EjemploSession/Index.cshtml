@@ -1,0 +1,30 @@
+﻿@using MvcNetCoreSession.Helpers
+<h1>Ejemplo session</h1>
+
+<h2>@Context.Session.GetString("Nombre")</h2>
+@{
+    string json = Context.Session.GetString("Mascota");
+    Mascota mascota = null;
+    if (Context.Session.GetString("Mascota") != null)
+    {
+        mascota = HelperJsonSession.DeserializeObject<Mascota>(json);
+    }
+}
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionSimple">Session simple</a>
+        <a asp-controller="EjemploSession" asp-action="SessionCollection">Session collection</a>
+        <a asp-controller="EjemploSession" asp-action="SessionMascota">Mascota</a>
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaJson">Masc json</a>
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaObject">Mas-object</a>
+
+    </li>
+
+</ul>
+
+@if(mascota != null){
+    <h3>@mascota.Nombre</h3>
+    <h3>@mascota.Edad</h3>
+    <h3>@mascota.Tipo</h3>
+}

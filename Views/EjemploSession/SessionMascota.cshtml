@@ -1,0 +1,15 @@
+﻿@{
+    Mascota mascota = (Mascota)ViewBag.Mascota;
+}
+
+<h2>@ViewBag.Mensaje</h2>
+
+<a asp-controller="EjemploSession" asp-action="SessionMascota" asp-route-accion="almacenar">Almacenar</a>
+<a asp-controller="EjemploSession" asp-action="SessionMascota" asp-route-accion="mostrar">Mostrar</a>
+
+@if (mascota != null)
+{
+    <h3>@mascota.Nombre</h3>
+    <h3>@mascota.Edad</h3>
+    <h3>@mascota.Tipo</h3>
+}
