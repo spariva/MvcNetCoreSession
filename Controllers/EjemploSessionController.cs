@@ -7,9 +7,17 @@ namespace MvcNetCoreSession.Controllers
 {
     public class EjemploSessionController : Controller
     {
-        public IActionResult Index()
+        HelperSessionContextAccesor helper;
+
+        public EjemploSessionController(HelperSessionContextAccesor helper)
         {
-            return View();
+            this.helper = helper;
+        }
+
+        public IActionResult Index()
+        {   
+            List<Mascota> mascotas = this.helper.GetMascotasSession();
+            return View(mascotas);
         }
 
         public IActionResult SessionSimple(string accion)
@@ -118,14 +126,42 @@ namespace MvcNetCoreSession.Controllers
             if (accion.ToLower() == "almacenar")
             {
                 Mascota mascota = new Mascota { Edad = 5, Nombre = "Olaz", Tipo = "Pez" };
-                HttpContext.Session.SetObject("MacotaObject", mascota);
+                HttpContext.Session.SetObject("Mascota", mascota);
             }
             else if (accion.ToLower() == "mostrar")
             {
-                Mascota mascota = HttpContext.Session.GetObject<Mascota>("MascotaObject");
-                ViewBag.MascotaObject = mascota;
+                Mascota mascota = HttpContext.Session.GetObject<Mascota>("Mascota");
+                ViewBag.Mascota = mascota;
             }
 
+            return View();
+        }
+
+        public IActionResult SessionMascotaCollection(string accion) 
+        { 
+            if(accion == null)
+            {
+                return View();
+            }
+
+            if (accion.ToLower() == "almacenar")
+            {
+                List<Mascota> mascotas = new List<Mascota>
+                {
+                    new Mascota { Edad = 2, Nombre = "Olaf", Tipo = "Pez" },
+                    new Mascota { Edad = 5, Nombre = "Patricio", Tipo = "Estrella" },
+                    new Mascota { Edad = 1, Nombre = "Serafina", Tipo = "Lagarto" },
+                };
+                HttpContext.Session.SetObject("Mascotas", mascotas);
+                ViewBag.Mensaje = "Colección creada";
+                return View();
+
+            } else if(accion.ToLower() == "mostrar")
+            {
+                List<Mascota> mascotas = HttpContext.Session.GetObject<List<Mascota>>("Mascotas");
+                ViewBag.mascotas = mascotas;
+                return View(mascotas);
+            }
             return View();
         }
     }

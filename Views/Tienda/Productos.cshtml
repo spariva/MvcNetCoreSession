@@ -1,0 +1,19 @@
+﻿<h1>Listado de productos</h1>
+
+<form method="post">
+    @Html.AntiForgeryToken();
+    <input type="text" name="direccion" placeholder="direccion" class="form-control" />
+    <button class="btn btn-success">Pedir</button>
+
+<ul>
+    <li>
+        <input type="checkbox" name="producto" value="ejemplo1" />ejemplo1
+    </li>
+    <li>
+        <input type="checkbox" name="producto" value="ejemplo2" />ejemplo2
+    </li>
+    <li>
+        <input type="checkbox" name="producto" value="ejemplo3" />ejemplo3
+    </li>
+</ul>
+</form>

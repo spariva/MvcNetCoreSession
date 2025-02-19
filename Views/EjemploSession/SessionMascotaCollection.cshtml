@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MvcNetCoreSession.Models.Mascota>
+
+@{
+    ViewData["Title"] = "SessionMascotaCollection";
+}
+
+<h1>SessionMascotaCollection</h1>
+
+<a asp-controller="EjemploSession" asp-action="SessionMascotaCollection" asp-route-accion="almacenar">Almacenar</a>
+<a asp-controller="EjemploSession" asp-action="SessionMascotaCollection" asp-route-accion="mostrar">Mostrar</a>
+
+@if(Model != null){
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}

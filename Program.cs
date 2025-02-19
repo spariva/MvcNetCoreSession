@@ -1,13 +1,19 @@
+using MvcNetCoreSession.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAntiforgery();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddSingleton<HelperSessionContextAccesor>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(10);
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
     //options.Cookie.HttpOnly = true;
     //options.Cookie.IsEssential = true;
 });
@@ -26,9 +32,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
-
 app.MapStaticAssets();
-
 app.UseSession();
 app.MapControllerRoute(
     name: "default",
